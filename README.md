@@ -1,2 +1,3 @@
 # CodeLatin
-Desarrollo de proyecto de Ecommerce en Django 
+
+Desarrollo de proyecto de Ecommerce en Django.
