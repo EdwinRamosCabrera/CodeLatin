@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'categorias',
+    'auths',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Codelatin.wsgi.application'
+AUTH_USER_MODEL = 'auths.Auth' # Indica a Django que use el modelo de usuario personalizado
 
 
 # Database
@@ -119,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'Codelatin/static',
+    BASE_DIR / 'CodeLatin/static',
 ]
 STATIC_ROOT = BASE_DIR / 'static'
 
