@@ -26,6 +26,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superadmin", True)
+        #extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("El superusuario debe tener is_staff=True.")
