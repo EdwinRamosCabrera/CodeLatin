@@ -16,10 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static # carga de archivos estaticos de las configuraciones de URL (old-school)
+
+from django.conf import settings 
 
 from .views import inicio
+
+# app_name = 'categorias' - esto sirve cuando se quiere acceder a una vista desde otra app
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inicio, name='inicio'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
