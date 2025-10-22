@@ -6,7 +6,6 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     slug=models.SlugField(max_length=100, unique=True)
     descripcion = models.TextField(max_length=300, blank=True, null=True)
-    imagen = models.ImageField(upload_to='static/images/categoria', blank=True, null=True,)
     activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)

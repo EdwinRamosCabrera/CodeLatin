@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import reverse
 from .models import Categoria
 
-#admin.site.register(Categoria)
+#admin.site.register(Categoria, CategoriaAdmin)
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'slug', 'descripcion', 'activo', 'fecha_creacion', 'fecha_modificacion')
