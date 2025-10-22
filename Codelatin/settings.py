@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'categorias',
     'auths',
     'tienda',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -121,10 +122,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles' # Directorio donde se recopilan todos los archivos estaticos para produccion
+
+"""
 STATICFILES_DIRS = [
-    BASE_DIR / 'CodeLatin/static',
+    BASE_DIR / 'CodeLatin/static', # Directorio de archivos estaticos globales (pero se eleiminaron xq esta dentro del proyecto)
 ]
-STATIC_ROOT = BASE_DIR / 'static'
+"""
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
