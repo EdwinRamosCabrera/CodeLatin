@@ -126,7 +126,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles' # Directorio donde se recopilan todos los
 
 """
 STATICFILES_DIRS = [
-    BASE_DIR / 'CodeLatin/static', # Directorio de archivos estaticos globales (pero se eleiminaron xq esta dentro del proyecto)
+    BASE_DIR / 'CodeLatin/static', # Directorio de archivos estaticos globales (pero se eliminaron xq esta dentro del proyecto)
 ]
 """
 
