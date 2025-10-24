@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda</title>
+</head>
+<body>
+    <h1>Bienvenido a la Tienda</h1>
+    <span class="mr-md-auto">Total de productos disponibles: <b>{{ conteo_productos }}</b></span>
+    <div class="row">
+        {% for producto in productos %}
+            <div class="col-md-3"> 
+                <div class="card product-grid">
+                    <a href="#" class="img-wrap">
+                        <img src={{producto.imagen.url}} alt="{{producto.nombre}}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <a href="#" class="title-product">
+                            {{producto.nombre}}
+                        </a>
+                        <div class="price mt-1">
+                            ${{producto.precio}}
+                        </div>
+                    </figcaption>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
