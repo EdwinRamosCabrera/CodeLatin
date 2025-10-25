@@ -1,32 +1,179 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tienda</title>
-</head>
-<body>
-    <h1>Bienvenido a la Tienda</h1>
-    <span class="mr-md-auto">Total de productos disponibles: <b>{{ conteo_productos }}</b></span>
-    <div class="row">
-        {% for producto in productos %}
-            <div class="col-md-3"> 
-                <div class="card product-grid">
-                    <a href="#" class="img-wrap">
-                        <img src={{producto.imagen.url}} alt="{{producto.nombre}}">
-                    </a>
-                    <figcaption class="info-wrap">
-                        <a href="#" class="title-product">
-                            {{producto.nombre}}
-                        </a>
-                        <div class="price mt-1">
-                            ${{producto.precio}}
-                        </div>
-                    </figcaption>
-                </div>
+<!-- tienda.html -->
+ {% load static %}
+ <link rel="stylesheet" href="{% static 'tienda/css/estilos_tienda.css' %}">
+<section class="shop-section">
+    <div class="shop-container">
+        
+        <!-- Hero Banner -->
+        <div class="shop-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Nuestra Tienda</h1>
+                <p class="hero-subtitle">Descubre productos increíbles con los mejores precios</p>
             </div>
-        {% endfor %}
+        </div>
+
+        <!-- Barra de búsqueda y filtros -->
+        <div class="shop-controls">
+            <div class="search-box">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
+            </div>
+
+            <div class="filter-group">
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">Todas las categorías</option>
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="filter-select" id="sortFilter">
+                    <option value="">Ordenar por</option>
+                    <option value="precio_asc">Precio: Menor a Mayor</option>
+                    <option value="precio_desc">Precio: Mayor a Menor</option>
+                    <option value="nombre">Nombre: A-Z</option>
+                    <option value="reciente">Más recientes</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Contador de productos -->
+        <div class="products-count">
+            <p>Mostrando <strong>{{ productos.count }}</strong> productos</p>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="products-grid">
+            {% for producto in productos %}
+            <article class="product-card {% if not producto.disponible %}out-of-stock{% endif %}">
+                
+                <!-- Imagen del producto -->
+                <div class="product-image-wrapper">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-img">
+                    
+                    <!-- Badges -->
+                    <div class="product-badges">
+                        {% if not producto.disponible %}
+                        <span class="badge badge-unavailable">Agotado</span>
+                        {% elif producto.stock < 5 %}
+                        <span class="badge badge-low-stock">¡Últimas unidades!</span>
+                        {% endif %}
+                        
+                        {% if producto.fecha_creacion|timesince < "5 days" %}
+                        <span class="badge badge-new">Nuevo</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Botón quick view -->
+                    <a href="#" class="quick-view">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        <span>Vista rápida</span>
+                    </a>
+                </div>
+
+                <!-- Info del producto -->
+                <div class="product-content">
+                    <!-- Categoría -->
+                    <span class="product-category">{{ producto.categoria.nombre }}</span>
+                    
+                    <!-- Nombre -->
+                    <h3 class="product-name">
+                        <a href="#">
+                            {{ producto.nombre }}
+                        </a>
+                    </h3>
+                    
+                    <!-- Descripción -->
+                    <p class="product-description">{{ producto.descripcion|truncatewords:12 }}</p>
+                    
+                    <!-- Footer: Precio y acciones -->
+                    <div class="product-footer">
+                        <div class="price-section">
+                            <span class="price">${{ producto.precio|floatformat:2 }}</span>
+                            <span class="stock-info">
+                                {% if producto.stock > 10 %}
+                                <span class="stock-dot stock-available"></span> En stock
+                                {% elif producto.stock > 0 %}
+                                <span class="stock-dot stock-low"></span> {{ producto.stock }} disponibles
+                                {% else %}
+                                <span class="stock-dot stock-out"></span> Agotado
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Botón agregar al carrito -->
+                        {% if producto.disponible and producto.stock > 0 %}
+                        <form action="" method="POST" class="add-to-cart-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-add-cart">
+                                <svg class="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <span>Agregar</span>
+                            </button>
+                        </form>
+                        {% else %}
+                        <button class="btn-add-cart btn-disabled" disabled>
+                            <svg class="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span>No disponible</span>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="no-products">
+                <svg class="no-products-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <h3>No hay productos disponibles</h3>
+                <p>Lo sentimos, no encontramos productos en este momento.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Paginación -->
+        {% if productos.has_other_pages %}
+        <div class="pagination">
+            {% if productos.has_previous %}
+            <a href="?page={{ productos.previous_page_number }}" class="pagination-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Anterior
+            </a>
+            {% endif %}
+
+            <div class="pagination-numbers">
+                {% for num in productos.paginator.page_range %}
+                    {% if productos.number == num %}
+                    <span class="pagination-number active">{{ num }}</span>
+                    {% else %}
+                    <a href="?page={{ num }}" class="pagination-number">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if productos.has_next %}
+            <a href="?page={{ productos.next_page_number }}" class="pagination-btn">
+                Siguiente
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
     </div>
-</body>
-</html>
+</section>
+
+<!-- Script para búsqueda en tiempo real (opcional) -->
+<script src="{% static 'tienda/js/tienda.js' %}"></script>

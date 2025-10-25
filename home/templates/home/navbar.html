@@ -4,18 +4,15 @@
         <div class="nav-container">
             <a href="#" class="logo">
                 <div class="logo-icon">🛒</div>
-                <span class="logo-text">LatinShop</span>
+                <span class="logo-text">Muyu</span>
             </a>
 
             <div class="search-bar">
                 <select class="search-select" id="searchCategory">
                     <option value="all">Todas las categorías</option>
-                    <option value="electronics">Electrónica</option>
-                    <option value="fashion">Moda</option>
-                    <option value="home">Hogar</option>
-                    <option value="sports">Deportes</option>
-                    <option value="books">Libros</option>
-                    <option value="toys">Juguetes</option>
+                    {% for categoria in links %}
+                    <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                    {% endfor %}
                 </select>
                 <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
                 <button class="search-btn">
@@ -42,6 +39,7 @@
     </nav>
 
     <div class="content">
-        <h1>Bienvenido a LatinShop</h1>
-        <p>Tu ecommerce moderno con diseño responsive y profesional</p>
+        <h1>Bienvenido a Muyu Toys</h1>
+        <img src="{% static 'home/images/muyu-sf.png' %}" alt="Banner de Juguetes" class="banner-image">
+        <p>Tú Ecommerce de juguetes moderno con diseño responsive y profesional</p>
     </div>

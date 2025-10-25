@@ -9,7 +9,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
     imagen = models.ImageField(upload_to='imagenes/productos', blank=True, null=True)
-    activo = models.BooleanField(default=True)
+    disponible = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
