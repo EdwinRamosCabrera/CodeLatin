@@ -1,6 +1,7 @@
 <!-- tienda.html -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'tienda/css/estilos_tienda.css' %}" />
+<link rel="icon" type="image/x-icon" href="{% static 'home/images/muyu.ico' %}" />
 <section class="shop-section">
 	<div class="shop-container">
 		<!-- Hero Banner -->
@@ -125,7 +126,7 @@
 
 					<!-- Nombre -->
 					<h3 class="product-name">
-						<a href="#"> {{ producto.nombre }} </a>
+						<a href="{% url 'tienda:detalle-producto' producto.slug %}"> {{ producto.nombre }} </a>
 					</h3>
 
 					<!-- Descripción -->

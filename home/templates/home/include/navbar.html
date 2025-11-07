@@ -1,0 +1,59 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'home/css/navbar.css' %}" />
+<nav class="navbar">
+	<div class="nav-container">
+		<a href="#" class="logo">
+			<div class="logo-icon">🛒</div>
+			<span class="logo-text">Muyu</span>
+		</a>
+
+		<div class="search-bar">
+			<form action="#" method="GET" class="search-form">
+				<select
+					class="search-select"
+					id="searchCategory"
+					onchange="if (this.value === '') { window.location.href='/'; } else { window.location.href='/productos/' + this.value + '/'; }"
+				>
+					<option value="">Todas las categorías</option>
+					{% for categoria in links %}
+					<option value="{{ categoria.slug }}"{% if categoria.slug == categoria_seleccionada %} selected {% endif %}>{{ categoria.nombre }}</option>
+					{% endfor %}
+				</select>
+			</form>
+			<input
+				type="text"
+				class="search-input"
+				placeholder="¿Qué estás buscando?"
+			/>
+			<button class="search-btn">
+				<span class="search-icon">🔍</span>
+			</button>
+		</div>
+
+		<div class="hamburger" onclick="toggleMenu()">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+
+		<ul class="nav-menu" id="navMenu">
+			<li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+			<li><a href="{% url 'tienda:tienda' %}" class="nav-link">Tienda</a></li>
+			<li><a href="#contacto" class="nav-link">Contacto</a></li>
+			<div class="nav-buttons">
+				<a href="#login" class="btn btn-login">Login</a>
+				<a href="#registro" class="btn btn-register">Registro</a>
+			</div>
+		</ul>
+	</div>
+</nav>
+
+<div class="content">
+	<h1>Bienvenido a Muyu Toys</h1>
+	<img
+		src="{% static 'home/images/muyu-sf.png' %}"
+		alt="Banner de Juguetes"
+		class="banner-image"
+	/>
+	<p>Tú Ecommerce de juguetes moderno con diseño responsive y profesional</p>
+</div>

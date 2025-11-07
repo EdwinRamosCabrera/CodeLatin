@@ -1,14 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ producto.nombre }}</title>
-</head>
-<body>
-    <h1>{{ producto.nombre }}</h1>
-    <p>Precio: {{ producto.precio }}</p>
-    <p>Descripción: {{ producto.descripcion }}</p>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="{% static 'home/images/muyu.ico' %}"
+		/>
+		<link rel="stylesheet" href="{% static 'home/css/bootstrap.css' %}" />
+		<link
+			rel="stylesheet"
+			href="{% static 'tienda/css/estilos_tienda.css' %}"
+		/>
+		<link rel="stylesheet" href="{% static 'home/css/estilos.css' %}" />
+		<link rel="stylesheet" href="{% static 'home/css/home.css' %}" />
+		<link rel="stylesheet" href="{% static 'home/css/estilos.css' %}" />
+		<title>Muyu Toys</title>
+	</head>
+
+	<body>
+		<div class="container mt-4">
+			<h1>{{ producto.nombre }}</h1>
+			<img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+			<p>Categoría: {{ producto.categoria.nombre }}</p>
+			<p>Precio: {{ producto.precio }}</p>
+			<p>Descripción: {{ producto.descripcion }}</p>
+
+			<a class="btn btn-success" href="{% url 'tienda:tienda' %}">Volver a la tienda</a>
+		</div>
+	</body>
+
 </html>
