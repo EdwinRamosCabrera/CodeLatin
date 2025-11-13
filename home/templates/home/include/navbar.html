@@ -8,24 +8,19 @@
 		</a>
 
 		<div class="search-bar">
-			<form action="#" method="GET" class="search-form">
-				<select
-					class="search-select"
-					id="searchCategory"
-					onchange="if (this.value === '') { window.location.href='/'; } else { window.location.href='/productos/' + this.value + '/'; }"
-				>
-					<option value="">Todas las categorías</option>
+				<select class="search-select" id="searchCategory">
+					<option value="all">Todas las categorías</option>
 					{% for categoria in links %}
-					<option value="{{ categoria.slug }}"{% if categoria.slug == categoria_seleccionada %} selected {% endif %}>{{ categoria.nombre }}</option>
+						<option value="{{ categoria.get_url }}">{{ categoria.nombre }}</option>
 					{% endfor %}
 				</select>
-			</form>
 			<input
 				type="text"
 				class="search-input"
+				id="text-buscar"
 				placeholder="¿Qué estás buscando?"
 			/>
-			<button class="search-btn">
+			<button class="search-btn" id="btnBuscar">
 				<span class="search-icon">🔍</span>
 			</button>
 		</div>
@@ -57,3 +52,18 @@
 	/>
 	<p>Tú Ecommerce de juguetes moderno con diseño responsive y profesional</p>
 </div>
+
+  <script>
+    document.getElementById('btnBuscar').addEventListener('click', function() {
+      const categoria = document.getElementById('searchCategory').value;
+      // const texto = document.getElementById('txt-buscar').value.trim();
+		console.log(categoria);
+    if (categoria === "all") {
+		window.location.href = "";
+	} 
+	else {
+      // Redirigir a la página de resultados
+      window.location.href = categoria;
+    }
+  });
+  </script>

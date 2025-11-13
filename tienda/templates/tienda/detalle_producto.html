@@ -4,16 +4,9 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="{% static 'home/images/muyu.ico' %}"
-		/>
+		<link rel="icon" type="image/x-icon" href="{% static 'home/images/muyu.ico' %}" />
 		<link rel="stylesheet" href="{% static 'home/css/bootstrap.css' %}" />
-		<link
-			rel="stylesheet"
-			href="{% static 'tienda/css/estilos_tienda.css' %}"
-		/>
+		<link rel="stylesheet" href="{% static 'tienda/css/estilos_tienda.css' %}" />
 		<link rel="stylesheet" href="{% static 'home/css/estilos.css' %}" />
 		<link rel="stylesheet" href="{% static 'home/css/home.css' %}" />
 		<link rel="stylesheet" href="{% static 'home/css/estilos.css' %}" />
@@ -22,11 +15,13 @@
 
 	<body>
 		<div class="container mt-4">
-			<h1>{{ producto.nombre }}</h1>
-			<img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
-			<p>Categoría: {{ producto.categoria.nombre }}</p>
-			<p>Precio: {{ producto.precio }}</p>
-			<p>Descripción: {{ producto.descripcion }}</p>
+			<div class="card">
+				<h1>{{ producto.nombre }}</h1>
+				<img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+				<p>Categoría: {{ producto.categoria.nombre }}</p>
+				<p>Precio: {{ producto.precio }}</p>
+				<p>Descripción: {{ producto.descripcion }}</p>
+			</div>
 
 			<a class="btn btn-success" href="{% url 'tienda:tienda' %}">Volver a la tienda</a>
 		</div>

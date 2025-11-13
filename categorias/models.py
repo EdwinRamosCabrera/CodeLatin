@@ -19,5 +19,5 @@ class Categoria(models.Model):
         return self.nombre
     
     def get_url(self):
-        return reverse('producto_por_categoria', args=[self.slug])
+        return reverse('tienda:productos_por_categoria', args=[self.slug])
 

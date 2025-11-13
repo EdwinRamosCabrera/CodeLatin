@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function filtrarCategoria(slug) {
-    if (slug === "") {
-        window.location.href = "/";  // ✅ Muestra todo
+function filtrarPorCategoria(slug) {
+    if (slug === "all") {
+        window.location.href = "";  // ✅ Muestra todo
     } else {
-        window.location.href = "/categoria/" + slug + "/";  // ✅ Filtra
+        window.location.href = slug;  // ✅ Filtra
     }
 }
 

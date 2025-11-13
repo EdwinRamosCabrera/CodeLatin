@@ -5,16 +5,8 @@ from categorias.models import Categoria
 # Create your views here.
 def home(request):
     productos = Producto.objects.all().filter(disponible=True)
+    categoria = Categoria.objects.first()
+    print(categoria.get_url())
     context = {"productos": productos}
-    return render(request, 'home/home.html', context)
 
-def productos_por_categoria(request, categoria_slug):
-    categoria = get_object_or_404(Categoria, slug=categoria_slug)
-    productos = Producto.objects.filter(categoria=categoria, disponible=True)
-    categorias = Categoria.objects.all()
-    context = {
-        "productos": productos,
-        "categoria_seleccionada": categoria_slug,
-        "categorias": categorias
-    }
     return render(request, 'home/home.html', context)

@@ -7,6 +7,7 @@
 		<!-- Hero Banner -->
 		<div class="shop-hero">
 			<div class="hero-content">
+				<a href="{% url 'home:home' %}"><img style="border-radius: 50%; width: 10rem; height: 10rem;" src="{% static 'home/images/muyu.ico' %}" alt="Tienda Muyu Toys" class="hero-image"/></a>
 				<h1 class="hero-title">Nuestra Tienda</h1>
 				<p class="hero-subtitle">
 					Descubre productos increíbles con los mejores precios
@@ -39,13 +40,7 @@
 			</div>
 
 			<div class="filter-group">
-               
-				<form
-					action="#"
-					method="GET"
-					class="filter-form"
-				>
-               
+
 					<select
 						class="filter-select"
 						id="categoryFilter"
@@ -65,7 +60,7 @@
 						<option value="nombre">Nombre: A-Z</option>
 						<option value="reciente">Más recientes</option>
 					</select>
-				</form>
+
 			</div>
 		</div>
 
@@ -126,7 +121,7 @@
 
 					<!-- Nombre -->
 					<h3 class="product-name">
-						<a href="{% url 'tienda:detalle-producto' producto.slug %}"> {{ producto.nombre }} </a>
+						<a href="{% url 'tienda:detalle_producto' producto.slug %}"> {{ producto.nombre }} </a>
 					</h3>
 
 					<!-- Descripción -->
