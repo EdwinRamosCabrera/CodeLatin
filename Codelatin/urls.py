@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static # carga de archivos estaticos de las configuraciones de URL (old-school)
 from django.conf import settings 
 
-from .views import inicio
+from . import views
 
 # app_name = 'categorias' - esto sirve cuando se quiere acceder a una vista desde otra app
 
