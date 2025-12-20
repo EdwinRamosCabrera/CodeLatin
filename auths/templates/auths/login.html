@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+{% block content %}
+<section class="section-content padding-y">
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+          <article class="card-body">
+            {% include 'includes/alerts.html' %}
+            <header class="mb-4">
+                <h2 class="text-center">Iniciar Sesión</h2>
+              </header>
+              
+            <form action="{% url 'auths:login' %}" method="POST">
+              {% csrf_token %}
+                    <div class="form-group">
+                        <label>Email</label>
+                        {{ formulario.email }}
+                    </div> <!-- form-group end.// -->
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        {{ formulario.password }}   
+                    </div> <!-- form-group end.// -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Iniciar Sesión  </button>
+                    </div> 
+                     {{ formulario.errors }}
+                     {{ formulario.non_field_erros }}
+                </form>
+            </article><!-- card-body.// -->
+        </div> <!-- card .// -->
+        <p class="text-center mt-4">No tienes Cuenta? <a href="{% url 'auths:register' %}">Registrate</a></p>
+        <br><br>
+    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+</section>
+{% endblock %}

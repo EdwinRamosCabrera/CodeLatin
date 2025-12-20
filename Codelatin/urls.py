@@ -28,4 +28,6 @@ urlpatterns = [
     # path('', inicio, name='inicio'),
     path('', include('home.urls')),
     path('tienda/', include('tienda.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('auths/', include('auths.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

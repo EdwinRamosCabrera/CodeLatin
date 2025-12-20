@@ -3,26 +3,27 @@ from django.contrib.auth.models import User # Es el mas comun
 from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin # Es mas complejo para personalizar el modelo de usuario
 
 class UserManager(BaseUserManager):
-    def create_user(self, name, lastname, username, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError("El email debe ser proporcionado")
+    def create_user(self, username, name, lastname, email, password=None, **extra_fields):
         if not username:
             raise ValueError("El nombre de usuario debe ser proporcionado")
         if not name:
             raise ValueError("El nombre debe ser proporcionado")
         if not lastname:
             raise ValueError("El apellido debe ser proporcionado")
+        if not email:
+            raise ValueError("El email debe ser proporcionado")
         user = self.model(
-            name=name, 
-            lastname=lastname, 
             username=username, 
+            name=name,  
+            lastname=lastname, 
             email=self.normalize_email(email), 
             **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        print("Usuario creado:", user)
         return user
 
-    def create_superuser(self, name, lastname, username, email, password=None, **extra_fields):
+    def create_superuser(self, username, name, lastname, email, password=None, **extra_fields):
         extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superadmin", True)
@@ -33,13 +34,13 @@ class UserManager(BaseUserManager):
         if extra_fields.get("is_superadmin") is not True:
             raise ValueError("El superusuario debe tener is_superadmin=True.")
 
-        return self.create_user(name, lastname, username, email, password, **extra_fields)
+        return self.create_user(username, name, lastname, email, password, **extra_fields)
 
 class Auth(AbstractUser, PermissionsMixin):
+    username = models.CharField(max_length=50, unique=True) # verificar si tiene que ser único ya que se genera segun el correo
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=150, unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 
     # required

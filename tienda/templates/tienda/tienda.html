@@ -73,7 +73,7 @@
 		<div class="products-grid">
 			{% for producto in productos %}
 			<article
-				class="product-card {% if not producto.disponible %}out-of-stock{% endif %}"
+				class="product-card {% if not producto.disponible %} out-of-stock {% endif %}"
 			>
 				<!-- Imagen del producto -->
 				<div class="product-image-wrapper">
