@@ -48,13 +48,13 @@ class Auth(AbstractUser, PermissionsMixin):
     last_login = models.DateTimeField(auto_now=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'name', 'lastname']
 
-    objects = UserManager()
+    objects = UserManager() # Esto sirve para la herencia cuandp instancies un usuario User podras usar los metodos de UserManager, ejemplo: usuario=User.object.create:user(….)
 
     def __str__(self):
         return self.email
