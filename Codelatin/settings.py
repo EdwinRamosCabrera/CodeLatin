@@ -149,7 +149,16 @@ MESSAGE_TAGS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Activación SMTP para el envío de correos
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'edwinmrc.12@gmail.com' # correo con el que se creo la contraseña de aplicacion
+EMAIL_HOST_PASSWORD = 'mklm afzg ggdb wwof'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'edwinmrc.12@gmail.com'
 
+# configuración de Jazzmin
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Ecommerce",
