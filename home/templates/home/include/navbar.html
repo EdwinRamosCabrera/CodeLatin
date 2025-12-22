@@ -37,7 +37,8 @@
 			<li><a href="#contacto" class="nav-link">Contacto</a></li>
 			<div class="nav-buttons">
 				{% if user.is_authenticated %}
-				<a href="{% url 'auths:logout' %}" class="btn btn-logout">Logout</a>
+				<span class="text-white bg-info px-2 rounded" style="height:20px">Hola, {{ user.username }}</span>
+				<a href="{% url 'auths:logout' %}" class="btn btn-login">Logout</a>
 				{% else %}
 				<a href="{% url 'auths:login' %}" class="btn btn-login">Login</a>
 				<a href="{% url 'auths:register' %}" class="btn btn-register">Registro</a>

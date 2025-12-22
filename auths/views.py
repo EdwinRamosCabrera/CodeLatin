@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required  
 from django.contrib.sites.shortcuts import get_current_site
@@ -20,18 +21,20 @@ def login_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         # Aquí iría la lógica de autenticación
-        user = authenticate(request, email=email, password=password)
+        user = auth.authenticate(request, email=email, password=password)
         if user is not None:
-            login(request, user)
-            return redirect('app_home:home')  # Redirigir a la página principal después del inicio de sesión exitoso
+            auth.login(request, user)
+            return redirect('home:home')  # Redirigir a la página principal después del inicio de sesión exitoso
         else:
-            context = {'error': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'}
-            return render(request, 'auths/login.html', context)
+            messages.error(request, 'Credenciales inválidas. Por favor, inténtalo de nuevo.')
+            return redirect('auths:login')
     return render(request, 'auths/login.html')
 
 
 def logout_view(request):
-    pass
+    auth.logout(request)
+    messages.success(request, "Has cerrado sesión exitosamente.")
+    return redirect('auths:login')  # Redirigir a la página principal después del cierre de sesión
 
 def register_view(request):
     if request.method == 'POST':
