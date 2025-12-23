@@ -1,6 +1,5 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import redirect, render
-from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required  
 from django.contrib.sites.shortcuts import get_current_site
@@ -68,6 +67,7 @@ def register_view(request):
             to_email = email # correo del destinatario
              # Enviamos el correo de activación
             send_email = EmailMessage(body_email, message, to=[to_email]) # Asignamos el cuerpo, mensaje y destinatario al correo
+            send_email.content_subtype = "html"  # Indicamos que el contenido del correo es HTML
             send_email.send()
             messages.success(request, "Cuenta creada exitosamente. Por favor, verifica tu correo electrónico para activar tu cuenta.")
             return redirect('auths:register') # Redirigimos a la misma página de registro   

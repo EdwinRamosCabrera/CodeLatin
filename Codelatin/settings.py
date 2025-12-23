@@ -136,6 +136,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Default messages tags para bootstrap
 MESSAGE_TAGS = {
     message.INFO: "",
     message.SUCCESS: "alert-success",
